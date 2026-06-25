@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sistema Mundial FIFA 2026</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header class="main-header">
+      <div class="container header-content">
+        <div>
+          <h1>Sistema de Gestión de la Copa Mundial FIFA 2026</h1>
+          <p class="subtitle">Administración de grupos, selecciones, partidos, tablas y fase eliminatoria.</p>
+        </div>
+
+        <nav class="main-nav">
+          <%= link_to "Inicio", root_path %>
+          <%= link_to "Grupos", groups_path %>
+          <%= link_to "Selecciones", teams_path %>
+          <%= link_to "Partidos", matches_path %>
+          <%= link_to "Tablas", standings_path %>
+          <%= link_to "Clasificados", classified_path %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container main-content">
+      <% if notice.present? %>
+        <div class="alert success">
+          <%= notice %>
+        </div>
+      <% end %>
+
+      <% if alert.present? %>
+        <div class="alert error">
+          <%= alert %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>

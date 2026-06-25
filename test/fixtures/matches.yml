@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stage: MyString
+  group_id: 1
+  home_team_id: 1
+  away_team_id: 1
+  home_score: 1
+  away_score: 1
+  home_penalties: 1
+  away_penalties: 1
+  winner_team_id: 1
+  played: false
+  match_number: 1
+  next_match_id: 1
+  next_match_slot: MyString
+
+two:
+  stage: MyString
+  group_id: 1
+  home_team_id: 1
+  away_team_id: 1
+  home_score: 1
+  away_score: 1
+  home_penalties: 1
+  away_penalties: 1
+  winner_team_id: 1
+  played: false
+  match_number: 1
+  next_match_id: 1
+  next_match_slot: MyString

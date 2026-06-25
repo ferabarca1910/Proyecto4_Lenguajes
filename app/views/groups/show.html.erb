@@ -1,0 +1,72 @@
+<h2>Grupo <%= @group.name %></h2>
+
+<p>
+  <%= link_to "Editar grupo", edit_group_path(@group) %> |
+  <%= link_to "Volver a grupos", groups_path %>
+</p>
+
+<h3>Selecciones del grupo</h3>
+
+<% if @group.teams.any? %>
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr>
+        <th>Selección</th>
+        <th>Puntos</th>
+        <th>GF</th>
+        <th>GC</th>
+        <th>DG</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @group.ordered_standings.each do |team| %>
+        <tr>
+          <td><%= team.country_name %></td>
+          <td><%= team.points %></td>
+          <td><%= team.goals_for %></td>
+          <td><%= team.goals_against %></td>
+          <td><%= team.goal_difference %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Este grupo todavía no tiene selecciones registradas.</p>
+<% end %>
+
+<h3>Partidos del grupo</h3>
+
+<% if @group.matches.any? %>
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr>
+        <th>Número</th>
+        <th>Local</th>
+        <th>Marcador</th>
+        <th>Visitante</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @group.matches.order(:match_number).each do |match| %>
+        <tr>
+          <td><%= match.match_number %></td>
+          <td><%= match.home_team&.country_name || "Pendiente" %></td>
+          <td>
+            <% if match.home_score.present? && match.away_score.present? %>
+              <%= match.home_score %> - <%= match.away_score %>
+            <% else %>
+              Sin resultado
+            <% end %>
+          </td>
+          <td><%= match.away_team&.country_name || "Pendiente" %></td>
+          <td><%= match.played? ? "Jugado" : "Pendiente" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Este grupo todavía no tiene partidos registrados.</p>
+<% end %>

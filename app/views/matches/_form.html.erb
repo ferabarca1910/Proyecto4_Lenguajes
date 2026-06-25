@@ -1,0 +1,82 @@
+<%= form_with(model: match) do |form| %>
+  <% if match.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(match.errors.count, "error") %> prohibited this match from being saved:</h2>
+
+      <ul>
+        <% match.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :stage, style: "display: block" %>
+    <%= form.text_field :stage %>
+  </div>
+
+  <div>
+    <%= form.label :group_id, style: "display: block" %>
+    <%= form.number_field :group_id %>
+  </div>
+
+  <div>
+    <%= form.label :home_team_id, style: "display: block" %>
+    <%= form.number_field :home_team_id %>
+  </div>
+
+  <div>
+    <%= form.label :away_team_id, style: "display: block" %>
+    <%= form.number_field :away_team_id %>
+  </div>
+
+  <div>
+    <%= form.label :home_score, style: "display: block" %>
+    <%= form.number_field :home_score %>
+  </div>
+
+  <div>
+    <%= form.label :away_score, style: "display: block" %>
+    <%= form.number_field :away_score %>
+  </div>
+
+  <div>
+    <%= form.label :home_penalties, style: "display: block" %>
+    <%= form.number_field :home_penalties %>
+  </div>
+
+  <div>
+    <%= form.label :away_penalties, style: "display: block" %>
+    <%= form.number_field :away_penalties %>
+  </div>
+
+  <div>
+    <%= form.label :winner_team_id, style: "display: block" %>
+    <%= form.number_field :winner_team_id %>
+  </div>
+
+  <div>
+    <%= form.label :played, style: "display: block" %>
+    <%= form.check_box :played %>
+  </div>
+
+  <div>
+    <%= form.label :match_number, style: "display: block" %>
+    <%= form.number_field :match_number %>
+  </div>
+
+  <div>
+    <%= form.label :next_match_id, style: "display: block" %>
+    <%= form.number_field :next_match_id %>
+  </div>
+
+  <div>
+    <%= form.label :next_match_slot, style: "display: block" %>
+    <%= form.text_field :next_match_slot %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

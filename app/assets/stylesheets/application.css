@@ -1,0 +1,246 @@
+/*
+ * Hoja de estilos principal del sistema.
+ * El objetivo es mantener una interfaz sencilla, ordenada y fácil de usar.
+ * No se utiliza un framework externo para evitar dependencias innecesarias.
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f6f8;
+  color: #1f2933;
+}
+
+.container {
+  width: min(1180px, 92%);
+  margin: 0 auto;
+}
+
+.main-header {
+  background: #0b2341;
+  color: white;
+  padding: 24px 0;
+  border-bottom: 5px solid #c8102e;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.main-header h1 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: #dbe4ee;
+  font-size: 15px;
+}
+
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  background-color: #143a63;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.main-nav a:hover {
+  background-color: #c8102e;
+}
+
+.main-content {
+  padding: 28px 0 48px;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 26px;
+  color: #0b2341;
+}
+
+h3 {
+  color: #0b2341;
+  margin-top: 28px;
+}
+
+.page-actions {
+  margin: 18px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button,
+.page-actions a,
+td a {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #0b5cab;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover,
+.page-actions a:hover,
+td a:hover {
+  background-color: #083f75;
+}
+
+.button-danger,
+td a[data-turbo-method="delete"] {
+  background-color: #c8102e;
+}
+
+.button-danger:hover,
+td a[data-turbo-method="delete"]:hover {
+  background-color: #8f0b20;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  margin-bottom: 24px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  margin-top: 16px;
+}
+
+thead {
+  background-color: #0b2341;
+  color: white;
+}
+
+th,
+td {
+  padding: 13px 14px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+th {
+  font-size: 14px;
+}
+
+td {
+  font-size: 14px;
+}
+
+.alert {
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.alert.success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.alert.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+form {
+  background-color: white;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  max-width: 720px;
+}
+
+form div {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #0b2341;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+input[type="checkbox"] {
+  width: auto;
+}
+
+input[type="submit"] {
+  width: auto;
+  background-color: #0b5cab;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #083f75;
+}
+
+.empty-message {
+  background-color: white;
+  padding: 18px;
+  border-radius: 10px;
+  color: #475569;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+}
+
+@media (max-width: 760px) {
+  .main-header h1 {
+    font-size: 24px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .main-nav a {
+    width: 100%;
+    text-align: center;
+  }
+}

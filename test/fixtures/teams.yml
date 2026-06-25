@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  country_name: MyString
+  group: one
+  points: 1
+  goals_for: 1
+  goals_against: 1
+  goal_difference: 1
+
+two:
+  country_name: MyString
+  group: two
+  points: 1
+  goals_for: 1
+  goals_against: 1
+  goal_difference: 1

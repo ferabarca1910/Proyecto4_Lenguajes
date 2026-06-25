@@ -1,0 +1,40 @@
+<section class="card">
+  <h2>Grupos del torneo</h2>
+
+  <p>
+    En esta sección se muestran los 12 grupos oficiales del sistema. Cada grupo contiene 4 selecciones y 6 partidos de fase de grupos.
+  </p>
+
+  <div class="page-actions">
+    <%= link_to "Crear nuevo grupo", new_group_path %>
+    <%= link_to "Ver selecciones", teams_path %>
+    <%= link_to "Ver partidos", matches_path %>
+    <%= link_to "Ver tablas de posiciones", standings_path %>
+  </div>
+</section>
+
+<table>
+  <thead>
+    <tr>
+      <th>Grupo</th>
+      <th>Cantidad de selecciones</th>
+      <th>Cantidad de partidos</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @groups.each do |group| %>
+      <tr>
+        <td><strong>Grupo <%= group.name %></strong></td>
+        <td><%= group.teams.count %></td>
+        <td><%= group.matches.count %></td>
+        <td>
+          <%= link_to "Ver", group_path(group) %>
+          <%= link_to "Editar", edit_group_path(group) %>
+          <%= link_to "Eliminar", group_path(group), data: { turbo_method: :delete, turbo_confirm: "¿Seguro que desea eliminar este grupo?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
