@@ -1,9 +1,13 @@
-<h1>New team</h1>
+<section class="card">
+  <h2>Registrar nueva selección</h2>
+
+  <p>
+    Complete la información de la selección participante y asigne el grupo correspondiente.
+  </p>
+</section>
 
 <%= render "form", team: @team %>
 
-<br>
-
-<div>
-  <%= link_to "Back to teams", teams_path %>
+<div class="page-actions">
+  <%= link_to "Volver a selecciones", teams_path %>
 </div>

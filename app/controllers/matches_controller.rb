@@ -1,38 +1,46 @@
 class MatchesController < ApplicationController
   before_action :set_match, only: %i[show edit update destroy]
 
-  # Muestra todos los partidos registrados.
+  # Muestra todos los partidos registrados en el sistema.
+  # Incluye partidos de fase de grupos y partidos de eliminación directa.
   def index
-    @matches = Match.includes(:group, :home_team, :away_team, :winner_team).order(:match_number)
+    @matches = Match
+      .includes(:group, :home_team, :away_team, :winner_team)
+      .order(:match_number)
   end
 
   # Muestra el detalle de un partido específico.
   def show
   end
 
-  # Prepara el formulario para crear un partido.
+  # Prepara el formulario para crear un nuevo partido.
   def new
     @match = Match.new
   end
 
-  # Prepara el formulario para editar un partido.
+  # Prepara el formulario para editar un partido existente.
   def edit
   end
 
   # Guarda un nuevo partido en la base de datos.
+  # Si el partido pertenece a eliminación directa, se procesa el posible ganador.
   def create
     @match = Match.new(match_params)
 
     if @match.save
+      KnockoutAdvancer.process(@match)
       redirect_to @match, notice: "Partido creado correctamente."
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  # Actualiza la información o el resultado de un partido.
+  # Actualiza la información de un partido.
+  # En fase de grupos, el modelo recalcula la tabla automáticamente.
+  # En eliminación directa, se calcula el ganador y se avanza a la siguiente ronda.
   def update
     if @match.update(match_params)
+      KnockoutAdvancer.process(@match)
       redirect_to @match, notice: "Partido actualizado correctamente."
     else
       render :edit, status: :unprocessable_entity

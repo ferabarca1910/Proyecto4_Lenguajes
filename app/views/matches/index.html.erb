@@ -1,14 +1,65 @@
-<p style="color: green"><%= notice %></p>
+<section class="card">
+  <h2>Partidos del Mundial 2026</h2>
 
-<h1>Matches</h1>
+  <p>
+    En esta sección se administran los partidos del torneo. Actualmente se muestran los partidos
+    de fase de grupos cargados desde los datos iniciales del sistema.
+  </p>
 
-<div id="matches">
-  <% @matches.each do |match| %>
-    <%= render match %>
-    <p>
-      <%= link_to "Show this match", match %>
-    </p>
-  <% end %>
-</div>
+  <div class="page-actions">
+    <%= link_to "Crear nuevo partido", new_match_path %>
+    <%= link_to "Ver grupos", groups_path %>
+    <%= link_to "Ver selecciones", teams_path %>
+    <%= link_to "Ver tablas de posiciones", standings_path %>
+  </div>
+</section>
 
-<%= link_to "New match", new_match_path %>
+<table>
+  <thead>
+    <tr>
+      <th>Número</th>
+      <th>Etapa</th>
+      <th>Grupo</th>
+      <th>Equipo local</th>
+      <th>Marcador</th>
+      <th>Equipo visitante</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @matches.each do |match| %>
+      <tr>
+        <td><%= match.match_number %></td>
+        <td><%= match.stage_name %></td>
+        <td><%= match.group.present? ? "Grupo #{match.group.name}" : "No aplica" %></td>
+        <td><strong><%= match.home_team&.country_name || "Pendiente" %></strong></td>
+
+        <td>
+          <% if match.home_score.present? && match.away_score.present? %>
+            <strong><%= match.home_score %> - <%= match.away_score %></strong>
+          <% else %>
+            Sin resultado
+          <% end %>
+        </td>
+
+        <td><strong><%= match.away_team&.country_name || "Pendiente" %></strong></td>
+
+        <td>
+          <% if match.played? %>
+            Jugado
+          <% else %>
+            Pendiente
+          <% end %>
+        </td>
+
+        <td>
+          <%= link_to "Ver", match_path(match) %>
+          <%= link_to "Editar", edit_match_path(match) %>
+          <%= link_to "Eliminar", match_path(match), data: { turbo_method: :delete, turbo_confirm: "¿Seguro que desea eliminar este partido?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

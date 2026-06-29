@@ -1,0 +1,43 @@
+<section class="card">
+  <h2>Podio del Mundial 2026</h2>
+
+  <p>
+    Esta sección muestra el campeón, subcampeón y tercer lugar del torneo una vez finalizada
+    la fase eliminatoria.
+  </p>
+
+  <div class="page-actions">
+    <%= link_to "Ver fase eliminatoria", knockout_path %>
+    <%= link_to "Ver partidos", matches_path %>
+  </div>
+</section>
+
+<section class="card">
+  <h3>Resultados finales</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Posición</th>
+        <th>Selección</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Campeón</td>
+        <td><strong><%= @champion&.country_name || "Pendiente" %></strong></td>
+      </tr>
+
+      <tr>
+        <td>Subcampeón</td>
+        <td><strong><%= @runner_up&.country_name || "Pendiente" %></strong></td>
+      </tr>
+
+      <tr>
+        <td>Tercer lugar</td>
+        <td><strong><%= @third_place&.country_name || "Pendiente" %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+</section>

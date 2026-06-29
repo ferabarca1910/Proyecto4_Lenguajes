@@ -1,9 +1,14 @@
-<h1>New match</h1>
+<section class="card">
+  <h2>Crear nuevo partido</h2>
+
+  <p>
+    Complete la información del partido. Para fase de grupos se debe seleccionar un grupo,
+    un equipo local, un equipo visitante y posteriormente registrar el resultado.
+  </p>
+</section>
 
 <%= render "form", match: @match %>
 
-<br>
-
-<div>
-  <%= link_to "Back to matches", matches_path %>
+<div class="page-actions">
+  <%= link_to "Volver a partidos", matches_path %>
 </div>

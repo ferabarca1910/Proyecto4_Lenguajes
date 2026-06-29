@@ -1,10 +1,15 @@
-<h1>Editing team</h1>
+<section class="card">
+  <h2>Editar selección</h2>
+
+  <p>
+    Modifique los datos de la selección seleccionada. Si la selección ya tiene partidos registrados,
+    las estadísticas pueden actualizarse nuevamente desde las tablas de posiciones.
+  </p>
+</section>
 
 <%= render "form", team: @team %>
 
-<br>
-
-<div>
-  <%= link_to "Show this team", @team %> |
-  <%= link_to "Back to teams", teams_path %>
+<div class="page-actions">
+  <%= link_to "Ver selección", team_path(@team) %>
+  <%= link_to "Volver a selecciones", teams_path %>
 </div>

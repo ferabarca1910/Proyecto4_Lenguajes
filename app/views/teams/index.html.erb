@@ -1,14 +1,47 @@
-<p style="color: green"><%= notice %></p>
+<section class="card">
+  <h2>Selecciones participantes</h2>
 
-<h1>Teams</h1>
+  <p>
+    En esta sección se muestran las selecciones registradas para el torneo.
+    Cada selección pertenece a un grupo y mantiene sus estadísticas de fase de grupos.
+  </p>
 
-<div id="teams">
-  <% @teams.each do |team| %>
-    <%= render team %>
-    <p>
-      <%= link_to "Show this team", team %>
-    </p>
-  <% end %>
-</div>
+  <div class="page-actions">
+    <%= link_to "Registrar nueva selección", new_team_path %>
+    <%= link_to "Ver grupos", groups_path %>
+    <%= link_to "Ver partidos", matches_path %>
+    <%= link_to "Ver tablas de posiciones", standings_path %>
+  </div>
+</section>
 
-<%= link_to "New team", new_team_path %>
+<table>
+  <thead>
+    <tr>
+      <th>Selección</th>
+      <th>Grupo</th>
+      <th>Puntos</th>
+      <th>Goles a favor</th>
+      <th>Goles en contra</th>
+      <th>Diferencia</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><strong><%= team.country_name %></strong></td>
+        <td>Grupo <%= team.group.name %></td>
+        <td><%= team.points %></td>
+        <td><%= team.goals_for %></td>
+        <td><%= team.goals_against %></td>
+        <td><%= team.goal_difference %></td>
+        <td>
+          <%= link_to "Ver", team_path(team) %>
+          <%= link_to "Editar", edit_team_path(team) %>
+          <%= link_to "Eliminar", team_path(team), data: { turbo_method: :delete, turbo_confirm: "¿Seguro que desea eliminar esta selección?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

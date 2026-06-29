@@ -1,0 +1,133 @@
+<section class="card">
+  <h2>Fase de eliminación directa</h2>
+
+  <p>
+    En esta sección se administra la fase eliminatoria del torneo. La llave se genera
+    a partir de los dos primeros lugares de cada grupo y los ocho mejores terceros lugares.
+  </p>
+
+  <p>
+    El sistema permite dos formas de trabajo: registrar resultados manualmente desde la sección de partidos
+    o utilizar la simulación automática para completar resultados de prueba durante la revisión.
+  </p>
+
+  <div class="page-actions">
+    <%= link_to "Ver clasificados", classified_path %>
+    <%= link_to "Ver partidos", matches_path %>
+    <%= link_to "Ver tablas", standings_path %>
+    <%= link_to "Ver podio", podium_path %>
+  </div>
+</section>
+
+<section class="card">
+  <h3>Acciones de prueba y generación</h3>
+
+  <p>
+    Estas acciones permiten probar el flujo completo del torneo sin registrar manualmente todos los resultados.
+  </p>
+
+  <div class="page-actions">
+    <%= button_to "Simular fase de grupos", simulate_group_stage_path, method: :post %>
+
+    <% if @group_stage_completed && !@knockout_generated %>
+      <%= button_to "Generar fase eliminatoria", generate_knockout_path, method: :post %>
+    <% end %>
+
+    <% if @knockout_generated %>
+      <%= button_to "Simular fase eliminatoria", simulate_knockout_path, method: :post %>
+
+      <%= button_to "Reiniciar fase eliminatoria", reset_knockout_path, method: :delete, data: { turbo_confirm: "¿Seguro que desea reiniciar la fase eliminatoria?" } %>
+    <% end %>
+  </div>
+
+  <% unless @group_stage_completed %>
+    <p class="empty-message">
+      La fase eliminatoria solo se puede generar cuando todos los partidos de fase de grupos estén marcados como jugados y tengan resultado.
+      Puede registrar los resultados manualmente desde Partidos o usar la opción de simulación.
+    </p>
+  <% end %>
+
+  <% if @group_stage_completed && !@knockout_generated %>
+    <p class="empty-message">
+      La fase de grupos ya está completa. Ahora puede generar la fase eliminatoria.
+    </p>
+  <% end %>
+</section>
+
+<% if @matches_by_stage.any? %>
+  <% Match::STAGES.each do |stage_name, stage_value| %>
+    <% next if stage_value == "group_stage" %>
+
+    <% matches = @matches_by_stage[stage_value] || [] %>
+
+    <% if matches.any? %>
+      <section class="card">
+        <h3><%= stage_name %></h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Equipo local</th>
+              <th>Marcador</th>
+              <th>Equipo visitante</th>
+              <th>Penales</th>
+              <th>Ganador</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% matches.each do |match| %>
+              <tr>
+                <td><%= match.match_number %></td>
+
+                <td>
+                  <strong><%= match.home_team&.country_name || "Pendiente" %></strong>
+                </td>
+
+                <td>
+                  <% if match.home_score.present? && match.away_score.present? %>
+                    <%= match.home_score %> - <%= match.away_score %>
+                  <% else %>
+                    Sin resultado
+                  <% end %>
+                </td>
+
+                <td>
+                  <strong><%= match.away_team&.country_name || "Pendiente" %></strong>
+                </td>
+
+                <td>
+                  <% if match.home_penalties.present? && match.away_penalties.present? %>
+                    <%= match.home_penalties %> - <%= match.away_penalties %>
+                  <% else %>
+                    No aplica
+                  <% end %>
+                </td>
+
+                <td>
+                  <%= match.winner_team&.country_name || "No definido" %>
+                </td>
+
+                <td>
+                  <%= match.played? ? "Jugado" : "Pendiente" %>
+                </td>
+
+                <td>
+                  <%= link_to "Ver", match_path(match) %>
+                  <%= link_to "Editar resultado", edit_match_path(match) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </section>
+    <% end %>
+  <% end %>
+<% else %>
+  <p class="empty-message">
+    Todavía no se ha generado la fase eliminatoria.
+  </p>
+<% end %>

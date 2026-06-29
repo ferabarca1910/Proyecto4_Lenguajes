@@ -1,10 +1,74 @@
-<p style="color: green"><%= notice %></p>
+<section class="card">
+  <h2>Detalle del partido</h2>
 
-<%= render @match %>
+  <p>
+    En esta vista se muestra la información completa del partido seleccionado, incluyendo etapa,
+    grupo, selecciones, resultado, penales y ganador cuando corresponda.
+  </p>
 
-<div>
-  <%= link_to "Edit this match", edit_match_path(@match) %> |
-  <%= link_to "Back to matches", matches_path %>
+  <div class="page-actions">
+    <%= link_to "Editar partido", edit_match_path(@match) %>
+    <%= link_to "Volver a partidos", matches_path %>
+  </div>
+</section>
 
-  <%= button_to "Destroy this match", @match, method: :delete %>
-</div>
+<table>
+  <tbody>
+    <tr>
+      <th>Número de partido</th>
+      <td><%= @match.match_number %></td>
+    </tr>
+
+    <tr>
+      <th>Etapa</th>
+      <td><%= @match.stage_name %></td>
+    </tr>
+
+    <tr>
+      <th>Grupo</th>
+      <td><%= @match.group.present? ? "Grupo #{@match.group.name}" : "No aplica" %></td>
+    </tr>
+
+    <tr>
+      <th>Equipo local</th>
+      <td><%= @match.home_team&.country_name || "Pendiente" %></td>
+    </tr>
+
+    <tr>
+      <th>Equipo visitante</th>
+      <td><%= @match.away_team&.country_name || "Pendiente" %></td>
+    </tr>
+
+    <tr>
+      <th>Resultado</th>
+      <td>
+        <% if @match.home_score.present? && @match.away_score.present? %>
+          <%= @match.home_score %> - <%= @match.away_score %>
+        <% else %>
+          Sin resultado registrado
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Penales</th>
+      <td>
+        <% if @match.home_penalties.present? && @match.away_penalties.present? %>
+          <%= @match.home_penalties %> - <%= @match.away_penalties %>
+        <% else %>
+          No aplica
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estado</th>
+      <td><%= @match.played? ? "Jugado" : "Pendiente" %></td>
+    </tr>
+
+    <tr>
+      <th>Ganador</th>
+      <td><%= @match.winner_team&.country_name || "No definido" %></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,10 +1,15 @@
-<h1>Editing match</h1>
+<section class="card">
+  <h2>Editar partido</h2>
+
+  <p>
+    En esta pantalla se puede registrar o modificar el resultado del partido.
+    Al guardar un partido de fase de grupos marcado como jugado, la tabla se recalcula automáticamente.
+  </p>
+</section>
 
 <%= render "form", match: @match %>
 
-<br>
-
-<div>
-  <%= link_to "Show this match", @match %> |
-  <%= link_to "Back to matches", matches_path %>
+<div class="page-actions">
+  <%= link_to "Ver partido", match_path(@match) %>
+  <%= link_to "Volver a partidos", matches_path %>
 </div>

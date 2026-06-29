@@ -1,7 +1,7 @@
 <%= form_with(model: match) do |form| %>
   <% if match.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(match.errors.count, "error") %> prohibited this match from being saved:</h2>
+    <div class="alert error">
+      <h3>No se pudo guardar el partido.</h3>
 
       <ul>
         <% match.errors.each do |error| %>
@@ -11,72 +11,64 @@
     </div>
   <% end %>
 
+  <%# Etapa del torneo. En fase de grupos se utiliza el grupo; en eliminación directa el grupo no aplica. %>
   <div>
-    <%= form.label :stage, style: "display: block" %>
-    <%= form.text_field :stage %>
+    <%= form.label :stage, "Etapa del torneo" %>
+    <%= form.select :stage, Match::STAGES.map { |name, value| [name, value] }, prompt: "Seleccione una etapa" %>
+  </div>
+
+  <%# Grupo del partido. Este campo se utiliza principalmente para partidos de fase de grupos. %>
+  <div>
+    <%= form.label :group_id, "Grupo" %>
+    <%= form.collection_select :group_id, Group.order(:name), :id, :name, prompt: "Seleccione un grupo" %>
+  </div>
+
+  <%# Selecciones que participan en el partido. %>
+  <div>
+    <%= form.label :home_team_id, "Equipo local" %>
+    <%= form.collection_select :home_team_id, Team.order(:country_name), :id, :country_name, prompt: "Seleccione el equipo local" %>
   </div>
 
   <div>
-    <%= form.label :group_id, style: "display: block" %>
-    <%= form.number_field :group_id %>
+    <%= form.label :away_team_id, "Equipo visitante" %>
+    <%= form.collection_select :away_team_id, Team.order(:country_name), :id, :country_name, prompt: "Seleccione el equipo visitante" %>
+  </div>
+
+  <%# Marcador del partido. Para fase de grupos este resultado alimenta la tabla de posiciones. %>
+  <div>
+    <%= form.label :home_score, "Goles del equipo local" %>
+    <%= form.number_field :home_score, min: 0 %>
   </div>
 
   <div>
-    <%= form.label :home_team_id, style: "display: block" %>
-    <%= form.number_field :home_team_id %>
+    <%= form.label :away_score, "Goles del equipo visitante" %>
+    <%= form.number_field :away_score, min: 0 %>
+  </div>
+
+  <%# Penales. Se utilizarán en eliminación directa cuando el partido termine empatado. %>
+  <div>
+    <%= form.label :home_penalties, "Penales del equipo local" %>
+    <%= form.number_field :home_penalties, min: 0 %>
   </div>
 
   <div>
-    <%= form.label :away_team_id, style: "display: block" %>
-    <%= form.number_field :away_team_id %>
+    <%= form.label :away_penalties, "Penales del equipo visitante" %>
+    <%= form.number_field :away_penalties, min: 0 %>
   </div>
 
+  <%# Al marcar el partido como jugado, el resultado se toma en cuenta para la tabla de posiciones. %>
   <div>
-    <%= form.label :home_score, style: "display: block" %>
-    <%= form.number_field :home_score %>
-  </div>
-
-  <div>
-    <%= form.label :away_score, style: "display: block" %>
-    <%= form.number_field :away_score %>
-  </div>
-
-  <div>
-    <%= form.label :home_penalties, style: "display: block" %>
-    <%= form.number_field :home_penalties %>
-  </div>
-
-  <div>
-    <%= form.label :away_penalties, style: "display: block" %>
-    <%= form.number_field :away_penalties %>
-  </div>
-
-  <div>
-    <%= form.label :winner_team_id, style: "display: block" %>
-    <%= form.number_field :winner_team_id %>
-  </div>
-
-  <div>
-    <%= form.label :played, style: "display: block" %>
+    <%= form.label :played, "Partido jugado" %>
     <%= form.check_box :played %>
   </div>
 
+  <%# Número utilizado para ordenar los partidos dentro del sistema. %>
   <div>
-    <%= form.label :match_number, style: "display: block" %>
-    <%= form.number_field :match_number %>
+    <%= form.label :match_number, "Número de partido" %>
+    <%= form.number_field :match_number, min: 1 %>
   </div>
 
   <div>
-    <%= form.label :next_match_id, style: "display: block" %>
-    <%= form.number_field :next_match_id %>
-  </div>
-
-  <div>
-    <%= form.label :next_match_slot, style: "display: block" %>
-    <%= form.text_field :next_match_slot %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit "Guardar partido" %>
   </div>
 <% end %>

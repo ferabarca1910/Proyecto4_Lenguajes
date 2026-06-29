@@ -1,10 +1,48 @@
-<p style="color: green"><%= notice %></p>
+<section class="card">
+  <h2><%= @team.country_name %></h2>
 
-<%= render @team %>
+  <p>
+    Detalle de la selección registrada en el sistema. Las estadísticas se actualizan automáticamente
+    al registrar los resultados de los partidos de fase de grupos.
+  </p>
 
-<div>
-  <%= link_to "Edit this team", edit_team_path(@team) %> |
-  <%= link_to "Back to teams", teams_path %>
+  <div class="page-actions">
+    <%= link_to "Editar selección", edit_team_path(@team) %>
+    <%= link_to "Volver a selecciones", teams_path %>
+    <%= link_to "Ver grupo", group_path(@team.group) %>
+  </div>
+</section>
 
-  <%= button_to "Destroy this team", @team, method: :delete %>
-</div>
+<table>
+  <tbody>
+    <tr>
+      <th>Selección</th>
+      <td><%= @team.country_name %></td>
+    </tr>
+
+    <tr>
+      <th>Grupo</th>
+      <td>Grupo <%= @team.group.name %></td>
+    </tr>
+
+    <tr>
+      <th>Puntos</th>
+      <td><%= @team.points %></td>
+    </tr>
+
+    <tr>
+      <th>Goles a favor</th>
+      <td><%= @team.goals_for %></td>
+    </tr>
+
+    <tr>
+      <th>Goles en contra</th>
+      <td><%= @team.goals_against %></td>
+    </tr>
+
+    <tr>
+      <th>Diferencia de goles</th>
+      <td><%= @team.goal_difference %></td>
+    </tr>
+  </tbody>
+</table>

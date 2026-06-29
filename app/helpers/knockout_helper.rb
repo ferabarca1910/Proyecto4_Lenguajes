@@ -1,0 +1,2 @@
+module KnockoutHelper
+end
