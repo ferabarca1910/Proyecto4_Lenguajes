@@ -1,2 +1,49 @@
-<h1>Standings#index</h1>
-<p>Find me in app/views/standings/index.html.erb</p>
+<section class="card">
+  <h2>Tablas de posiciones</h2>
+
+  <p>
+    En esta sección se muestran las tablas de posiciones de los 12 grupos del torneo.
+    La clasificación se calcula automáticamente tomando en cuenta puntos, diferencia de goles
+    y goles a favor.
+  </p>
+
+  <div class="page-actions">
+    <%= link_to "Ver grupos", groups_path %>
+    <%= link_to "Ver partidos", matches_path %>
+    <%= link_to "Ver clasificados", classified_path %>
+  </div>
+</section>
+
+<% @groups.each do |group| %>
+  <% standings = StandingsCalculator.standings_for(group) %>
+
+  <section class="card">
+    <h3><%= group.name %></h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Posición</th>
+          <th>Selección</th>
+          <th>Puntos</th>
+          <th>Goles a favor</th>
+          <th>Goles en contra</th>
+          <th>Diferencia de goles</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% standings.each_with_index do |team, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><strong><%= team.country_name %></strong></td>
+            <td><%= team.points %></td>
+            <td><%= team.goals_for %></td>
+            <td><%= team.goals_against %></td>
+            <td><%= team.goal_difference %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+<% end %>

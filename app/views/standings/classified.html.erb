@@ -1,2 +1,98 @@
-<h1>Standings#classified</h1>
-<p>Find me in app/views/standings/classified.html.erb</p>
+<section class="card">
+  <h2>Selecciones clasificadas</h2>
+
+  <p>
+    En esta sección se muestran las selecciones que avanzan a la fase eliminatoria.
+    Clasifican automáticamente los dos primeros lugares de cada grupo y los ocho mejores terceros lugares.
+  </p>
+
+  <div class="page-actions">
+    <%= link_to "Ver tablas", standings_path %>
+    <%= link_to "Ver eliminatoria", knockout_path %>
+    <%= link_to "Ver grupos", groups_path %>
+  </div>
+</section>
+
+<section class="card">
+  <h3>Primeros lugares</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Grupo</th>
+        <th>Selección</th>
+        <th>Puntos</th>
+        <th>Diferencia de goles</th>
+        <th>Goles a favor</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @first_places.each do |team| %>
+        <tr>
+          <td><%= team.group.name %></td>
+          <td><strong><%= team.country_name %></strong></td>
+          <td><%= team.points %></td>
+          <td><%= team.goal_difference %></td>
+          <td><%= team.goals_for %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h3>Segundos lugares</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Grupo</th>
+        <th>Selección</th>
+        <th>Puntos</th>
+        <th>Diferencia de goles</th>
+        <th>Goles a favor</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @second_places.each do |team| %>
+        <tr>
+          <td><%= team.group.name %></td>
+          <td><strong><%= team.country_name %></strong></td>
+          <td><%= team.points %></td>
+          <td><%= team.goal_difference %></td>
+          <td><%= team.goals_for %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h3>Ocho mejores terceros lugares</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Grupo</th>
+        <th>Selección</th>
+        <th>Puntos</th>
+        <th>Diferencia de goles</th>
+        <th>Goles a favor</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @best_third_places.each do |team| %>
+        <tr>
+          <td><%= team.group.name %></td>
+          <td><strong><%= team.country_name %></strong></td>
+          <td><%= team.points %></td>
+          <td><%= team.goal_difference %></td>
+          <td><%= team.goals_for %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
